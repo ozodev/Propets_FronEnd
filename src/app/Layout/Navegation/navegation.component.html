@@ -1,0 +1,16 @@
+<button *ngIf="!loginStatus" class="btn btn-success position-absolute end-0 top-0 m-2" (click)="open(loginmodal)">Ingresar</button>
+<button *ngIf="loginStatus" placement="start" [ngbTooltip]="username" routerLink="/dashboard" class="btn btn-outline-secondary position-absolute rounded-circle end-0 top-0 m-2 p-2">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+    </svg>
+</button>
+<ng-template #loginmodal let-loginmodal>
+    <div class="modal-body">
+        <app-login [loginmodal]="loginmodal" (changeModal)="changeModal(loginmodal,registermodal)"></app-login>
+    </div>
+</ng-template>
+<ng-template #registermodal let-registermodal>
+    <div class="modal-body">
+        <app-register [registermodal]="registermodal" (changeModal)="changeModal(registermodal,loginmodal)" [registerModal]="registermodal"></app-register>
+    </div>
+</ng-template>

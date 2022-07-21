@@ -1,0 +1,12 @@
+.dashboard-body{max-width: 800px;}
+.btn-minimize{
+    outline: none;
+    border: none;
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    border-radius: 20px;
+}
+.btn-minimize:hover{
+    background-color: rgb(243, 243, 243);
+}

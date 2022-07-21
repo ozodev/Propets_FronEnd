@@ -1,0 +1,9 @@
+.foto{
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: rgb(226, 235, 226);
+}
+.error-body{
+    height: 20px;
+}

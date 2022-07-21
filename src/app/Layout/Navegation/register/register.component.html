@@ -1,0 +1,38 @@
+<h1 class="col-12 text-center text-success fw-bold">Registrarse</h1>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label for="email-input" class="form-label">Email</label><span *ngIf="hasErrors('email')" class=" text-danger"> Debe ser un Correo</span>
+        <input type="email" formControlName="email" class="form-control" id="email-input" placeholder="nombre@ejemplo.com">
+    </div>
+    <div class="mb-3">
+        <label for="nombre-input" class="form-label">Nombre</label><span *ngIf="hasErrors('nombre')" class=" text-danger">Solo letras a-z</span>
+        <input type="text" formControlName="nombre" class="form-control" id="nombre-input" placeholder="Juan Sebastian">
+    </div>
+    <div class="mb-3">
+        <label for="apellido-input" class="form-label">Apellido</label><span *ngIf="hasErrors('apellido')" class=" text-danger">Solo letras a-z</span>
+        <input type="text" formControlName="apellido" class="form-control" id="apellido-input" placeholder="Lara Cardozo">
+    </div>
+    <div class="mb-3">
+        <label for="telefono-input" class="form-label">Telefono</label><span *ngIf="hasErrors('telefono')" class=" text-danger">Numero Celular con 10 digitos</span>
+        <input type="text" formControlName="telefono" class="form-control" id="telefono-input" placeholder="3165555555">
+    </div>
+    <div class="mb-3">
+        <label for="password-input" class="form-label">Contraseña</label><span *ngIf="hasErrors('password')" class=" text-danger">Campo necesario</span>
+        <input type="password" formControlName="password" class="form-control" id="password-input" placeholder="patosalvaje123">
+    </div>
+    <div class="mb-3">
+        <label for="repassword-input" class="form-label">Confirmar Contraseña</label><span *ngIf="hasErrors('repassword')" class=" text-danger">Campo necesario</span>
+        <input type="password" formControlName="repassword" class="form-control" id="repassword-input" placeholder="patosalvaje123">
+    </div>
+    <div class="error-field">
+        <div *ngIf="error!=''" class=" text-danger">{{error}}</div>
+    </div>
+    <div class="row m-0">
+        <div class="col-6 p-2">
+            <button class="btn btn-outline-success w-100" (click)="closeModal()">Iniciar Secion</button>
+        </div>
+        <div class="col-6 p-2">
+            <button type="submit" class="w-100 btn btn-success" >Continuar</button>
+        </div>
+    </div>   
+</form>    

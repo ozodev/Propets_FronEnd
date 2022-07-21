@@ -1,0 +1,10 @@
+.item{
+    height: 200px;
+    width: 200px;
+    box-shadow: 1px 2px 5px 5px rgba(0, 128, 0, 0.1);
+    border-radius: 20px;
+    border-color: rgb(120, 179, 120) !important;
+}
+.container-body{
+    max-width: 800px;
+}
