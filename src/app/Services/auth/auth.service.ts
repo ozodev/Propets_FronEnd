@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +8,8 @@ import { StorageService } from '../storage/storage.service';
 export class AuthService {
 
   private assest_token:any
-  private persona = {
-    apellido:'',
-    nombre: '',
-    email:'',
-    enabled: false,
-    roles: [],
-    telefono: '',
-    veterinario: null
-  }
-  constructor(private http:HttpClient,private storage:StorageService) { }
+  
+  constructor(private http:HttpClient) { }
 
   public login(email:string,password:string):Observable<any>{
     const credencials = btoa('AngularAppProPets' + ':' + '123456789')
@@ -52,36 +43,7 @@ export class AuthService {
 
   public delete():Observable<any>{return this.http.delete('/api/usuario',{headers: this.authorization})}
 
-  public saveUserInfo(data:any){
-    this.persona.apellido = data['apellido']
-    this.persona.nombre = data['nombre']
-    this.persona.email = data['email']
-    this.persona.enabled = data['enabled']
-    this.storage.saveMascotas(data['mascotas']); 
-    this.persona.roles = data['roles']
-    this.persona.telefono = data['telefono']
-    this.persona.veterinario = data['veterinario']
-  }
-  public unloadUserInfo(){
-    this.persona = {
-      apellido:'',
-      nombre: '',
-      email:'',
-      enabled: false,
-      roles: [],
-      telefono: '',
-      veterinario: null
-    }
-    this.token = '';
-  }
   public get authorization(){return new HttpHeaders({'Authorization': 'Bearer '+ this.token,})}
-  public get nombre():string{return this.persona.nombre}
-  public get apellido():string{return this.persona.apellido}
-  public get email():string{return this.persona.email}
-  public get enabled():boolean{return this.persona.enabled}
-  public get roles():never[]{return this.persona.roles}
-  public get telefono():string{return this.persona.telefono}
-  public get veterinario(){return this.persona.veterinario}
   public get token(){return this.assest_token}
   public set token(token:string){this.assest_token=token}
 }

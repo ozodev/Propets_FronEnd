@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth/auth.service';
+import { StorageService } from 'src/app/Services/storage/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -9,23 +10,24 @@ import { AuthService } from 'src/app/Services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  @Input() loginmodal:any
-  @Output() changeModal = new EventEmitter()
-
-  constructor(private auth:AuthService) { }
-
-  ngOnInit(): void {
-  }
-
-  loginForm = new FormGroup({
-    email: new FormControl("",[Validators.required,Validators.email]),
-    password: new FormControl("",[Validators.required,Validators.minLength(8)])
-  })
   public loginerror:boolean = false;
   public loginStatus:boolean = false;
   public username:string = '';
 
-  public isEmailValid():boolean{return this.loginForm.controls['email'].invalid && ( this.loginForm.controls['email'].dirty || this.loginForm.controls['email'].touched)}
+  @Input() loginmodal:any
+  @Output() changeModal = new EventEmitter()
+
+  public loginForm:FormGroup = new FormGroup({
+    email: new FormControl("",[Validators.required,Validators.email]),
+    password: new FormControl("",[Validators.required,Validators.minLength(8)])
+  })
+
+  constructor(private auth:AuthService,private storage:StorageService) { }
+
+  ngOnInit(): void {}
+
+  public hasErrors(control:string){return this.loginForm.controls[control].invalid && ( this.loginForm.controls[control].dirty || this.loginForm.controls[control].touched)}
+
   public getEmailError():string{
     let errors:any = this.loginForm.controls['email'].errors
     if(errors.email !=null) return 'No es un Correo'
@@ -33,7 +35,6 @@ export class LoginComponent implements OnInit {
     return 'Argumentos Invalidos'
   }
 
-  public isPasswordValid():boolean{return this.loginForm.controls['password'].invalid &&( this.loginForm.controls['password'].dirty || this.loginForm.controls['password'].touched)}
   public getPasswordError():string{
     let errors:any = this.loginForm.controls['password'].errors
     if(errors.minlength !=null) return 'Contraseña debe tener 8 o mas caracteres'
@@ -49,10 +50,10 @@ export class LoginComponent implements OnInit {
       this.auth.login(email,password).subscribe((req)=>{
         this.auth.token = req['access_token'];
         this.auth.getUserInfo().subscribe((req)=>{
-          this.auth.saveUserInfo(req)
+          this.storage.savePersona(req)
             this.loginmodal.close()
             this.loginStatus=true;
-            this.username = this.auth.email;
+            this.username = this.storage.Persona.email;
         })
       },()=>{this.loginerror=true})
     }

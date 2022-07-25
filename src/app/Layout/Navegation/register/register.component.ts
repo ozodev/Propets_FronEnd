@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth/auth.service';
+import { StorageService } from 'src/app/Services/storage/storage.service';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ export class RegisterComponent implements OnInit {
   @Output() changeModal = new EventEmitter()
   @Input() registerModal:any
   public error = '';
+  private _editable = true;
   public registerForm = new FormGroup({
     nombre: new FormControl("",[Validators.required,Validators.pattern("^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$")]),
     apellido: new FormControl("",[Validators.required,Validators.pattern("^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$")]),
@@ -22,32 +24,25 @@ export class RegisterComponent implements OnInit {
     repassword: new FormControl("",[Validators.required,Validators.minLength(8),Validators.maxLength(16)])
   })
 
-  constructor(private auth:AuthService) { }
+  constructor(private auth:AuthService,private storage:StorageService) { }
 
   ngOnInit(): void {}
 
   public closeModal(){this.changeModal.emit()}
 
-  public hasErrors(control:string):boolean{
-    return this.registerForm.controls[control].invalid && (this.registerForm.controls[control].dirty || this.registerForm.controls[control].touched)
-  }
+  public hasErrors(control:string):boolean{return this.registerForm.controls[control].invalid && (this.registerForm.controls[control].dirty || this.registerForm.controls[control].touched)}
 
   public onSubmit(){
     this.error=''
-    Object.keys(this.registerForm.controls).forEach(control =>{this.registerForm.controls[control].disable()})
-    if(this.registerForm.invalid){
+    this.editabled=false;
+    if(this.registerForm.invalid || this.registerForm.controls['password'].value==''){
       this.error = 'Hay campos incompletos'
-      Object.keys(this.registerForm.controls).forEach(control =>{this.registerForm.controls[control].enable()})
+      this.editabled=true;
       return;
     }
     if(this.registerForm.controls['password'].value != this.registerForm.controls['repassword'].value){
       this.error = 'Las Contraseñas deben ser Iguales'
-      Object.keys(this.registerForm.controls).forEach(control =>{this.registerForm.controls[control].enable()})
-      return;
-    }
-    if(this.registerForm.controls['password'].value==''){
-      this.error = 'Hay campos incompletos'
-      Object.keys(this.registerForm.controls).forEach(control =>{this.registerForm.controls[control].enable()})
+      this.editabled=true;
       return;
     }
     let email = this.registerForm.controls['email'].value;
@@ -59,10 +54,17 @@ export class RegisterComponent implements OnInit {
         let apelido = this.registerForm.controls['apellido'].value;
         let telefono = this.registerForm.controls['telefono'].value;
         this.auth.updateUserInfo(nombre,apelido,telefono).subscribe((req1)=>{
-          this.auth.saveUserInfo(req1)
+          this.storage.savePersona(req1)
           this.registermodal.close()
         })
       })
     })
+  }
+
+  public get editabled(){return this._editable;}
+  public set editabled(edit:boolean){
+    if(edit) Object.keys(this.registerForm.controls).forEach(control =>{this.registerForm.controls[control].enable()})
+    else Object.keys(this.registerForm.controls).forEach(control =>{this.registerForm.controls[control].disable()})
+    this._editable=edit;
   }
 }
