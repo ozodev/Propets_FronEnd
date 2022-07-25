@@ -1,0 +1,101 @@
+<form [formGroup]="citaForm" (ngSubmit)="onSubmit(guardar)" class="row m-0 justify-content-start">
+    <div class="col-12 col-sm-4 my-2 px-1">
+        <label for="mascota-input" class="form-label text-success fw-bold">Mascota</label><span *ngIf="hasErrors('mascota')" class="text-danger"> Escoge una Mascota</span>
+        <select class="form-select" formControlName="mascota" id="mascota-input">
+            <option *ngIf="mascotas.length==0" selected>No tienes Mascotas</option>
+            <option *ngFor="let mascota of mascotas" [value]="mascota['nombre']">{{mascota['nombre']}}</option>
+        </select>
+    </div>
+    <div *ngIf="isEnable('mascota')" class="col-12 col-sm-4 my-2 px-1">
+        <label for="fecha_input" class="form-label text-success fw-bold">Fecha</label>
+        <div class=" position-relative">
+            <input matInput [matDatepicker]="picker" formControlName="fecha" class="px-1 form-control" [ngClass]="{'bg-white':isEdit}" id="fecha_input" placeholder="M/D/A" readonly>
+            <mat-datepicker-toggle matSuffix class="col-auto px-1 text-secondary position-absolute end-0 top-50 translate-middle-y" [for]="picker"></mat-datepicker-toggle>
+        </div>
+        <mat-datepicker #picker></mat-datepicker>
+    </div>
+    <div *ngIf="isEnable('fecha')" class="col-12 col-sm-4 my-2 px-1">
+        <label for="lugar-input" class="form-label text-success fw-bold">Lugar</label>
+        <select class="form-select" formControlName="lugar" id="lugar-input">
+            <option *ngFor="let centro of centros" [value]="centro['id']">{{centro['ciudad']+' '+centro['direccion']}}</option>
+        </select>
+    </div>
+    <div *ngIf="isEnable('lugar')" class="col-12 col-sm-4 my-2 px-1">
+        <label for="veterinario-input" class="form-label text-success fw-bold">Veterinario</label>
+        <select class="form-select" formControlName="veterinario" id="veterinario-input">
+            <option *ngFor="let veterinario of veterinarios" [value]="veterinario['veterinario']['id']">{{veterinario['nombre'] +' '+veterinario['apellido']}}</option>
+        </select>
+    </div>
+    <div *ngIf="isEnable('veterinario')" class="col-12 col-sm-4 my-2 px-1">
+        <label for="franja-input" class="form-label text-success fw-bold">Hora</label>
+        <select class="form-select" formControlName="franja" id="franja-input">
+            <option *ngFor="let franja of franjas" [value]="franja['value']">{{franja['title']}}</option>
+        </select>
+    </div>
+    <div *ngIf="isEnable('franja')" class="col-12 col-sm-4 my-2 px-1">
+        <label for="tipo-input" class="form-label text-success fw-bold">Tipo</label>
+        <select class="form-select" formControlName="tipo" id="estado-input">
+            <option *ngFor="let tipo of citaTipos" [value]="tipo['value']">{{tipo['title']}}</option>
+        </select>
+    </div>
+    <div *ngIf="isEnable('tipo')" class="col-12 col-sm-4 my-2 px-1">
+        <label for="estado-input" class="form-label text-success fw-bold">Estado</label>
+        <select class="form-select" formControlName="estado" id="estado-input">
+            <option *ngFor="let estado of estados" [value]="estado['value']">{{estado['titulo']}}</option>
+        </select>
+    </div>
+    <div class="col-12 my-2 p-1 align-self-end">
+        <div class="row m-0 justify-content-end">
+            <div class="col-auto">
+                <button  class="btn btn-outline-danger" placement="bottom" ngbTooltip="Cancelar" (click)="onCancel()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="col-auto">
+                <button  type="submit" class="btn btn-success" placement="bottom" ngbTooltip="Guardar" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                    </svg>
+                </button>
+            </div>
+            <div *ngIf="cita!=null" class="col-auto">
+                <button type="button" class="btn btn-outline-danger" placement="bottom" ngbTooltip="Eliminar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                      </svg>
+                </button>
+            </div>
+            <div *ngIf="cita!=null" class="col-auto">
+                <button  class="btn btn-outline-success" placement="bottom" ngbTooltip="Editar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<hr class=" border-success">
+<ng-template #guardar let-guardarmodal >
+    <div class="modal-body position-relative">
+        <button type="button" class="btn-close position-absolute m-2 end-0 top-0" aria-label="Close" (click)="guardarmodal.close()"></button>
+        <p class=" text-success text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+            </svg>
+        </p>
+        <h1 class=" text-success fw-bold text-center w-100">Guardar</h1>
+        <p class=" text-secondary fs-6 text-center">Estas seguro de actualizar la informacion?</p>
+        <div class="row m-0 justify-content-center">
+            <div class="col-auto">
+                <button type="button" class="btn btn-outline-success" (click)="onCancelSave(guardarmodal)">Cancelar</button>
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-success" >Continuar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

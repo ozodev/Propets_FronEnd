@@ -16,6 +16,13 @@ import { DashBoardMascotaComponent } from './Layout/dash-board/dash-board-mascot
 import { DashBoardMascotaViewComponent } from './Layout/dash-board/dash-board-mascota/dash-board-mascota-view/dash-board-mascota-view.component';
 import { LoginComponent } from './Layout/Navegation/login/login.component';
 import { RegisterComponent } from './Layout/Navegation/register/register.component';
+import { CitasComponent } from './Layout/dash-board/citas/citas.component';
+import { CitaItemComponent } from './Layout/dash-board/citas/cita-item/cita-item.component';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; 
+import { MatSliderModule } from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCommonModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -28,7 +35,9 @@ import { RegisterComponent } from './Layout/Navegation/register/register.compone
     DashBoardMascotaComponent,
     DashBoardMascotaViewComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CitasComponent,
+    CitaItemComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +46,12 @@ import { RegisterComponent } from './Layout/Navegation/register/register.compone
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule,
+    MatSliderModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatCommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

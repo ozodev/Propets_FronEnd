@@ -1,11 +1,11 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmmit()">
     <h1 class="col-12 text-center text-success fw-bold">Iniciar Sesion</h1>
     <div class="mb-3">
-        <label for="email_input" class="form-label">Email</label><span *ngIf="isEmailValid()" class=" text-danger"> {{getEmailError()}}</span>
+        <label for="email_input" class="form-label text-success fw-bold">Email</label><span *ngIf="isEmailValid()" class=" text-danger"> {{getEmailError()}}</span>
         <input type="email" formControlName="email" class="form-control" [ngClass]="{'border border-danger':isEmailValid()}" id="email_input1">
     </div>
     <div class="mb-3">
-        <label for="password_input" class="form-label">Nombre</label><span *ngIf="isPasswordValid()" class=" text-danger"> {{getPasswordError()}}</span>
+        <label for="password_input" class="form-label text-success fw-bold">Contraseña</label><span *ngIf="isPasswordValid()" class=" text-danger"> {{getPasswordError()}}</span>
         <input type="password" formControlName="password" class="form-control" [ngClass]="{'border border-danger':isPasswordValid()}" id="password_input">
     </div>
     <div class="w-100 errorcontent">

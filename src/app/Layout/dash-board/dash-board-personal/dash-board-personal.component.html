@@ -5,19 +5,19 @@
     <form [formGroup]="personaForm"  class="col-12 col-sm">
         <div class="row h-100 align-content-center">
             <div class="col-12 col-md-6 mb-3">
-                <label for="nombre_input" class="form-label">Nombre</label><span *ngIf="isEditable && hasErrors('nombre')" class=" text-danger">Campo Necesario</span>
+                <label for="nombre_input" class="form-label text-success fw-bold">Nombre</label><span *ngIf="isEditable && hasErrors('nombre')" class=" text-danger">Campo Necesario</span>
                 <input formControlName="nombre" type="text" class="form-control" id="nombre_input" placeholder="name@example.com">
             </div>
             <div class="col-12 col-md-6 mb-3">
-                <label for="apellido_input" class="form-label">Apellido</label><span *ngIf="isEditable && hasErrors('apellido')" class=" text-danger">Campo Necesario</span>
+                <label for="apellido_input" class="form-label text-success fw-bold">Apellido</label><span *ngIf="isEditable && hasErrors('apellido')" class=" text-danger">Campo Necesario</span>
                 <input formControlName="apellido" type="text" class="form-control" id="apellido_input" placeholder="name@example.com">
             </div>
             <div class="col-12 col-md-6 mb-3">
-                <label for="email_input" class="form-label">Email</label>
+                <label for="email_input" class="form-label text-success fw-bold">Email</label>
                 <input formControlName="email" type="text" class="form-control" id="email_input" placeholder="name@example.com">
             </div>
             <div class="col-12 col-md-6 mb-3">
-                <label for="telefono_input" class="form-label">Telefono</label><span *ngIf="isEditable && hasErrors('telefono')" class=" text-danger">Campo Necesario</span>
+                <label for="telefono_input" class="form-label text-success fw-bold">Telefono</label><span *ngIf="isEditable && hasErrors('telefono')" class=" text-danger">Campo Necesario</span>
                 <input formControlName="telefono" type="text" class="form-control" id="telefono_input" placeholder="name@example.com">
             </div>
         </div>

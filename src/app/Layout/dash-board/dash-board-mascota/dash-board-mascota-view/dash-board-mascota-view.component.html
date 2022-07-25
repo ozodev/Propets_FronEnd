@@ -7,27 +7,27 @@
         </div>
         <div class="col-12 col-sm row p-0 m-0">
             <div class="mb-3 col-12 col-sm-6">
-                <label for="nombre_input" class="form-label">Nombre</label><span *ngIf="editabled && hasErrors('nombre')" class=" text-danger"> Campo Necesario</span>
+                <label for="nombre_input" class="form-label text-success fw-bold">Nombre</label><span *ngIf="editabled && hasErrors('nombre')" class=" text-danger"> Campo Necesario</span>
                 <input type="email" formControlName="nombre" class="form-control" id="nombre_input" placeholder="Toby">
             </div>
             <div class="mb-3 col-12 col-sm-6">
-                <label for="peso_input" class="form-label">Peso (Kg)</label><span *ngIf="editabled && hasErrors('peso')" class=" text-danger"> Numero Entero</span>
+                <label for="peso_input" class="form-label text-success fw-bold">Peso (Kg)</label><span *ngIf="editabled && hasErrors('peso')" class=" text-danger"> Numero Entero</span>
                 <input type="number" formControlName="peso" class="form-control" id="peso_input" placeholder="20kg">
             </div>
             <div class="col-12 col-sm-4 mb-3">
-                <label for="raza_input" class="form-label">Raza</label>
+                <label for="raza_input" class="form-label text-success fw-bold">Raza</label>
                 <select class="form-select" formControlName="raza" id="raza_input">
-                    <option *ngFor="let raza of razas" [value]="raza">{{raza}}</option>
+                    <option *ngFor="let raza of razas" [value]="raza['value']">{{raza['title']}}</option>
                 </select>
             </div>
             <div class="col-12 col-sm-4">
-                <label for="color_input" class="form-label">Color</label>
+                <label for="color_input" class="form-label text-success fw-bold">Color</label>
                 <select class=" form-select" formControlName="color" id="color_input">
                     <option *ngFor="let color of colores" [value]="color">{{color}}</option>
                 </select>
             </div>
             <div class="col-12 col-sm-4">
-                <label for="size_input" class="form-label">Tamaño</label>
+                <label for="size_input" class="form-label text-success fw-bold">Tamaño</label>
                 <select class="form-select" formControlName="size" id="size_input">
                     <option *ngFor="let size of sizes" [value]="size">{{size}}</option>
                 </select>
@@ -50,7 +50,7 @@
                 </svg>
             </button>
         </div>
-        <div *ngIf="!editabled && id!=''" class="col-auto">
+        <div *ngIf="!editabled && mascota.id!=''" class="col-auto">
             <button type="button" class="btn btn-outline-danger" placement="bottom" ngbTooltip="Eliminar" (click)="open(deletemodal)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                     <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -88,8 +88,8 @@
             </div>
         </div>
     </div>
-  </ng-template>
-  <ng-template #guardar let-guardarmodal>
+</ng-template>
+<ng-template #guardar let-guardarmodal>
     <div class="modal-body position-relative">
         <button type="button" class="btn-close position-absolute m-2 end-0 top-0" aria-label="Close" (click)="guardarmodal.close()"></button>
         <p class=" text-success text-center">

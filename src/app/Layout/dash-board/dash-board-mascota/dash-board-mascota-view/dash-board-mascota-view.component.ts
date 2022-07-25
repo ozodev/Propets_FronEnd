@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MascotasService } from 'src/app/Services/mascotas.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Mascota } from 'src/app/Objects/Mascota';
 
 @Component({
   selector: 'app-dash-board-mascota-view',
@@ -10,47 +11,36 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class DashBoardMascotaViewComponent implements OnInit {
 
-  public mascotaForm= new FormGroup({
-    nombre : new FormControl('',[Validators.required]),
-    peso:  new FormControl('',[Validators.required]),
-    raza:  new FormControl(''),
-    color: new FormControl(''),
-    size : new FormControl('')
-  })
-  @Input() nombre:string=''
-  @Input() peso:string=''
-  @Input() raza:string=''
-  @Input() color:string=''
-  @Input() size:string=''
-  @Input() id:string=''
+  public _editable:boolean;
+  public errorMsg = '';
+  public razas
+  public colores
+  public sizes
+
+  @Input() mascota:Mascota;
   @Output() cancel = new EventEmitter()
   @Output() update = new EventEmitter()
 
-  public _editable = true;
-  public errorMsg = '';
-  public get editabled():boolean{return this._editable}
-  public set editabled(editable:boolean){
-    if(editable) Object.keys(this.mascotaForm.controls).forEach(control=>{this.mascotaForm.controls[control].enable()})
-    else Object.keys(this.mascotaForm.controls).forEach(control=>{this.mascotaForm.controls[control].disable()})
-    this._editable=editable;
-  }
-  public razas = []
-  public colores = []
-  public sizes = []
-  constructor(private mascotas:MascotasService,private modalService: NgbModal) { }
-
-  ngOnInit(): void {
-    if(this.id!=''){
-      this.editabled=false
-      this.mascotaForm.controls['nombre'].setValue(this.nombre);
-      this.mascotaForm.controls['peso'].setValue(this.peso);
-      this.mascotaForm.controls['raza'].setValue(this.raza);
-      this.mascotaForm.controls['color'].setValue(this.color);
-      this.mascotaForm.controls['size'].setValue(this.size)
-    }
+  public mascotaForm:FormGroup;
+  
+  constructor(private mascotas:MascotasService,private modalService: NgbModal) {
+    this.mascota = new Mascota()
     this.razas=this.mascotas.razas;
     this.colores=this.mascotas.colores;
     this.sizes=this.mascotas.sizes
+    this._editable = true;
+    this.mascotaForm = new FormGroup({})
+  }
+
+  ngOnInit(): void {
+    this.mascotaForm= new FormGroup({
+      nombre : new FormControl(this.mascota.nombre,[Validators.required]),
+      peso:  new FormControl((this.mascota.peso!=0)? this.mascota.peso:'',[Validators.required]),
+      raza:  new FormControl(this.mascota.raza,[Validators.required]),
+      color: new FormControl(this.mascota.color,[Validators.required]),
+      size : new FormControl(this.mascota.size,[Validators.required])
+    })
+    this.editabled=(this.mascota.id=='')
   }
 
   public open(modal:any):void {this.modalService.open(modal)}
@@ -65,18 +55,12 @@ export class DashBoardMascotaViewComponent implements OnInit {
     this.open(modal)
   }
 
-  public hasErrors(control:string):boolean{
-    return this.mascotaForm.controls[control].invalid && (this.mascotaForm.controls[control].dirty || this.mascotaForm.controls[control].touched)
-  }
+  public hasErrors(control:string):boolean{return this.mascotaForm.controls[control].invalid && (this.mascotaForm.controls[control].dirty || this.mascotaForm.controls[control].touched)}
   
   public onSubmit(modal:any):void{
-    let nombre = this.mascotaForm.controls['nombre'].value;
-    let peso = this.mascotaForm.controls['peso'].value;
-    let color = this.mascotaForm.controls['color'].value;
-    let raza = this.mascotaForm.controls['raza'].value;
-    let size = this.mascotaForm.controls['size'].value;
-    if(this.id==''){
-      this.mascotas.createMascota(nombre,peso,raza,color,size).subscribe(()=>{
+    let mascota = this.mascotaForm.value as Mascota
+    if(this.mascota.id==''){
+      this.mascotas.createMascota(mascota).subscribe(()=>{
         this.mascotas.getMascotas().subscribe((req)=>{
           this.mascotas.saveMascotas(req)
           this.update.emit()
@@ -85,7 +69,7 @@ export class DashBoardMascotaViewComponent implements OnInit {
       })
       return;
     }
-    this.mascotas.updateMascota(nombre,peso,raza,color,size,this.id).subscribe(()=>{
+    this.mascotas.updateMascota(mascota,this.mascota.id).subscribe(()=>{
       this.mascotas.getMascotas().subscribe((req)=>{
         this.mascotas.saveMascotas(req)
         this.update.emit()
@@ -95,7 +79,7 @@ export class DashBoardMascotaViewComponent implements OnInit {
   }
 
   public onDelete(modal:any):void{
-    this.mascotas.deleteMascota(this.id).subscribe(()=>{
+    this.mascotas.deleteMascota(this.mascota.id).subscribe(()=>{
       this.mascotas.getMascotas().subscribe((req)=>{
         this.mascotas.saveMascotas(req)
         this.update.emit()
@@ -105,16 +89,23 @@ export class DashBoardMascotaViewComponent implements OnInit {
   }
 
   public onCancel():void{
-    if(this.id==''){
+    if(this.mascota.id==''){
       this.cancel.emit()
       return;
     }
     this.editabled = false;
-    this.mascotaForm.controls['nombre'].setValue(this.nombre);
-    this.mascotaForm.controls['peso'].setValue(this.peso);
-    this.mascotaForm.controls['raza'].setValue(this.raza);
-    this.mascotaForm.controls['color'].setValue(this.color);
-    this.mascotaForm.controls['size'].setValue(this.size);
+    this.mascotaForm.controls['nombre'].setValue(this.mascota.nombre);
+    this.mascotaForm.controls['peso'].setValue(this.mascota.peso);
+    this.mascotaForm.controls['raza'].setValue(this.mascota.raza);
+    this.mascotaForm.controls['color'].setValue(this.mascota.color);
+    this.mascotaForm.controls['size'].setValue(this.mascota.size);
+  }
+
+  public get editabled():boolean{return this._editable}
+  public set editabled(editable:boolean){
+    if(editable) Object.keys(this.mascotaForm.controls).forEach(control=>{this.mascotaForm.controls[control].enable()})
+    else Object.keys(this.mascotaForm.controls).forEach(control=>{this.mascotaForm.controls[control].disable()})
+    this._editable=editable;
   }
 
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,11 @@ export class AuthService {
     nombre: '',
     email:'',
     enabled: false,
-    mascotas: [],
     roles: [],
     telefono: '',
     veterinario: null
   }
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private storage:StorageService) { }
 
   public login(email:string,password:string):Observable<any>{
     const credencials = btoa('AngularAppProPets' + ':' + '123456789')
@@ -64,7 +64,7 @@ export class AuthService {
     this.persona.nombre = data['nombre']
     this.persona.email = data['email']
     this.persona.enabled = data['enabled']
-    this.persona.mascotas = data['mascotas']
+    this.storage.saveMascotas(data['mascotas']); 
     this.persona.roles = data['roles']
     this.persona.telefono = data['telefono']
     this.persona.veterinario = data['veterinario']
@@ -75,7 +75,6 @@ export class AuthService {
       nombre: '',
       email:'',
       enabled: false,
-      mascotas: [],
       roles: [],
       telefono: '',
       veterinario: null
@@ -87,8 +86,6 @@ export class AuthService {
   public get apellido():string{return this.persona.apellido}
   public get email():string{return this.persona.email}
   public get enabled():boolean{return this.persona.enabled}
-  public get mascotas(){return this.persona.mascotas}
-  public set mascotas(data:any){this.persona.mascotas=data}
   public get roles():never[]{return this.persona.roles}
   public get telefono():string{return this.persona.telefono}
   public get veterinario(){return this.persona.veterinario}

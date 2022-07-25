@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dash-board-menu',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashBoardMenuComponent implements OnInit {
 
+  @Output() seccionEvent= new EventEmitter()
+  @Input() seccion='inicio'
+
   constructor() { }
 
-  ngOnInit(): void {
-  }
-  
+  ngOnInit(): void {}
+
+  public sendSeccion(seccion:string):void{this.seccionEvent.emit(seccion)}
+
 }

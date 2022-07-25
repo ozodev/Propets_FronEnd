@@ -45,6 +45,11 @@ export class RegisterComponent implements OnInit {
       Object.keys(this.registerForm.controls).forEach(control =>{this.registerForm.controls[control].enable()})
       return;
     }
+    if(this.registerForm.controls['password'].value==''){
+      this.error = 'Hay campos incompletos'
+      Object.keys(this.registerForm.controls).forEach(control =>{this.registerForm.controls[control].enable()})
+      return;
+    }
     let email = this.registerForm.controls['email'].value;
     let password = this.registerForm.controls['password'].value
     this.auth.register(email,password).subscribe(()=>{

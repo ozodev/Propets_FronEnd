@@ -1,34 +1,60 @@
-<div class="container dashboard-body mt-2 p-0"><app-dash-board-menu></app-dash-board-menu></div>
-<div class="container shadow rounded-3 dashboard-body mt-3 p-3">
-    <div class="row m-0">
-        <h1 class="col text-success text-center fw-bold w-100">Informacion Personal</h1>
-        <button *ngIf="showPersonal" type="button" class="col-auto btn-minimize p-2" (click)="showPersonal=false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-contract text-secondary" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
-              </svg>
-        </button>
-        <button *ngIf="!showPersonal" type="button" class="col-auto btn-minimize p-2" (click)="showPersonal=true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand text-secondary" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>
-            </svg>
-        </button>
-    </div>
-    <app-dash-board-personal *ngIf="showPersonal"></app-dash-board-personal>
+<div class="container dashboard-body mt-2 p-0">
+    <app-dash-board-menu (seccionEvent)="changeSeccion($event)" [seccion]="seccion"></app-dash-board-menu>
 </div>
-<div class="container shadow rounded-3 dashboard-body mt-5 p-3">
-    <div class="row m-0">
-        <h1 class="col text-success text-center fw-bold ms-4">Mascotas</h1>
-        <button *ngIf="showMascotas" type="button" class="col-auto btn-minimize p-2" (click)="showMascotas=false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-contract text-secondary" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
-              </svg>
-        </button>
-        <button *ngIf="!showMascotas" type="button" class="col-auto btn-minimize p-2" (click)="showMascotas=true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand text-secondary" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>
-            </svg>
-        </button>
+<div class="row m-0">
+    <div class="col-12">
+        <div class="container shadow rounded-3 dashboard-body my-3 p-3">
+            <div class="row m-0">
+                <h1 class="col text-success text-center fw-bold w-100">Informacion Personal</h1>
+                <button *ngIf="showPersonal" type="button" class="col-auto btn-minimize p-2" (click)="showPersonal=false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-contract text-secondary" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
+                      </svg>
+                </button>
+                <button *ngIf="!showPersonal" type="button" class="col-auto btn-minimize p-2" (click)="showPersonal=true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand text-secondary" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>
+                    </svg>
+                </button>
+            </div>
+            <app-dash-board-personal *ngIf="showPersonal"></app-dash-board-personal>
+        </div>
     </div>
-    <app-dash-board-mascota *ngIf="showMascotas"></app-dash-board-mascota>
+    <div class="col-12" [ngClass]="{'order-first':seccion=='mascotas'}">
+        <div class="container shadow rounded-3 dashboard-body my-3 p-3">
+            <div class="row m-0">
+                <h1 class="col text-success text-center fw-bold ms-4">Mascotas</h1>
+                <button *ngIf="showMascotas" type="button" class="col-auto btn-minimize p-2" (click)="showMascotas=false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-contract text-secondary" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
+                      </svg>
+                </button>
+                <button *ngIf="!showMascotas" type="button" class="col-auto btn-minimize p-2" (click)="showMascotas=true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand text-secondary" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>
+                    </svg>
+                </button>
+            </div>
+            <app-dash-board-mascota *ngIf="showMascotas"></app-dash-board-mascota>
+        </div>
+    </div>
+    <div class="col-12" [ngClass]="{'order-first':seccion=='citas'}">
+        <div class="container shadow rounded-3 dashboard-body my-3 p-3">
+            <div class="row m-0">
+                <h1 class="col text-success text-center fw-bold ms-4">Citas</h1>
+                <button *ngIf="showCitas" type="button" class="col-auto btn-minimize p-2" (click)="showCitas=false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-contract text-secondary" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
+                      </svg>
+                </button>
+                <button *ngIf="!showCitas" type="button" class="col-auto btn-minimize p-2" (click)="showCitas=true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand text-secondary" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>
+                    </svg>
+                </button>
+            </div>
+            <app-citas *ngIf="showCitas"></app-citas>
+        </div>
+    </div>
 </div>
-<div class="my-5 w-100" style="color: transparent;">a</div>
+<div class="my-3 w-100" style="color: transparent;">a</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/Services/auth.service';
-import { MascotasService } from 'src/app/Services/mascotas.service';
+import { Mascota } from 'src/app/Objects/Mascota';
+import { StorageService } from 'src/app/Services/storage.service';
 
 @Component({
   selector: 'app-dash-board-mascota',
@@ -9,17 +9,17 @@ import { MascotasService } from 'src/app/Services/mascotas.service';
 })
 export class DashBoardMascotaComponent implements OnInit {
 
-  constructor(private auth:AuthService,private mascotaService:MascotasService) { }
+  public mascotas:Mascota[];
+  public newMascota:boolean;
 
-  public mascotas:any = []
-
-  public newMascota:boolean = false;
-
-  ngOnInit(): void {
-    this.onUpdate();
+  constructor(private storage:StorageService) {
+    this.mascotas = []
+    this.onUpdate()
+    this.newMascota = false;
   }
+  ngOnInit(): void {}
 
-  public onUpdate():void{this.mascotas=this.auth.mascotas}
+  public onUpdate():void{this.mascotas=this.storage.Mascotas}
 
   public onUpdateNew():void{
     this.onUpdate()
