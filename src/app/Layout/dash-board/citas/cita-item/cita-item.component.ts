@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CentroAtencionService } from 'src/app/Services/centro-atencion.service';
-import { CITAService } from 'src/app/Services/cita.service';
-import { VeterinarioService } from 'src/app/Services/veterinario.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from 'src/app/Services/auth.service';
+import { AuthService } from 'src/app/Services/auth/auth.service';
+import { CentroAtencionService } from 'src/app/Services/centro-atencion/centro-atencion.service';
+import { CitaService } from 'src/app/Services/cita/cita.service';
+import { VeterinarioService } from 'src/app/Services/veterinarios/veterinario.service';
 
 @Component({
   selector: 'app-cita-item',
@@ -48,12 +48,12 @@ export class CitaItemComponent implements OnInit {
   constructor(
       private auth:AuthService,
       private centrosAtencion:CentroAtencionService,
-      private citaService:CITAService,
+      private citaService:CitaService,
       private veterinarioService:VeterinarioService,
       private modalService: NgbModal
       ) 
     {
-    this.centros=centrosAtencion.centros
+    this.centros=centrosAtencion.Centros
     this.citaTipos = citaService.CitasTipo;
     this.franjas = citaService.FranjaTipo;
     this.veterinarios = veterinarioService.Veterinarios;

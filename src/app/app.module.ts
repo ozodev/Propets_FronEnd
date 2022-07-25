@@ -21,8 +21,8 @@ import { CitaItemComponent } from './Layout/dash-board/citas/cita-item/cita-item
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'; 
 import { MatSliderModule } from '@angular/material/slider';
-import {MatSelectModule} from '@angular/material/select';
-import {MatCommonModule} from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCommonModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [

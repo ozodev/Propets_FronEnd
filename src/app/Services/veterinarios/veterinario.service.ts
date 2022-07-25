@@ -8,10 +8,11 @@ import { Observable } from 'rxjs';
 export class VeterinarioService {
 
   private _veterinarios=[]
-  public get Veterinarios(){return this._veterinarios;}
-  public set Veterinarios(data:any){this._veterinarios=data;}
-
+ 
   constructor(private http:HttpClient) { }
 
   public getVeterinarios():Observable<any>{return this.http.get('/api/veterinario')}
+
+  public get Veterinarios(){return this._veterinarios;}
+  public set Veterinarios(data:any){this._veterinarios=data;}
 }

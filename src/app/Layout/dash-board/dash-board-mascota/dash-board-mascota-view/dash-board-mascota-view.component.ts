@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MascotasService } from 'src/app/Services/mascotas.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Mascota } from 'src/app/Objects/Mascota';
+import { MascotasService } from 'src/app/Services/mascotas/mascotas.service';
 
 @Component({
   selector: 'app-dash-board-mascota-view',

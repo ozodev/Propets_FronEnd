@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from 'src/app/Services/auth.service';
+import { AuthService } from 'src/app/Services/auth/auth.service';
 
 @Component({
   selector: 'app-navegation',

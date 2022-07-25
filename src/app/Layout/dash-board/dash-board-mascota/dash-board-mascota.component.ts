@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Mascota } from 'src/app/Objects/Mascota';
-import { StorageService } from 'src/app/Services/storage.service';
+import { StorageService } from 'src/app/Services/storage/storage.service';
 
 @Component({
   selector: 'app-dash-board-mascota',

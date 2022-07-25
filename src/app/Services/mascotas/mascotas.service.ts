@@ -1,9 +1,9 @@
 import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Mascota } from '../Objects/Mascota';
-import { AuthService } from './auth.service';
-import { StorageService } from './storage.service';
+import { Mascota } from 'src/app/Objects/Mascota';
+import { AuthService } from '../auth/auth.service';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,12 @@ export class MascotasService {
   public createMascota(mascota:Mascota):Observable<any>{return this.http.post('/api/mascota',this.getData(mascota),{headers: this.auth.authorization})}
   public deleteMascota(id:string):Observable<any>{return this.http.delete<any>('/api/mascota/'+id,{headers: this.auth.authorization})}
 
+  private getData(mascota:Mascota){
+    let data = new FormData()
+    Object.keys(mascota).forEach((key:string)=>{data.append(key,(new Map(Object.entries(mascota)).get(key)))})
+    return data;
+  }
+
   public get razas(){return this._razas}
   public set razas(data:any){this._razas=data}
   public get colores(){return this._colores}
@@ -33,9 +39,4 @@ export class MascotasService {
   public get sizes(){return this._sizes}
   public set sizes(data:any){this._sizes=data}
 
-  private getData(mascota:Mascota){
-    let data = new FormData()
-    Object.keys(mascota).forEach((key:string)=>{data.append(key,(new Map(Object.entries(mascota)).get(key)))})
-    return data;
-  }
 }
