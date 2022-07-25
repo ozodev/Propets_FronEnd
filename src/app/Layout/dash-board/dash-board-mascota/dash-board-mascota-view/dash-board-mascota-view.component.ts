@@ -58,9 +58,10 @@ export class DashBoardMascotaViewComponent implements OnInit {
   public hasErrors(control:string):boolean{return this.mascotaForm.controls[control].invalid && (this.mascotaForm.controls[control].dirty || this.mascotaForm.controls[control].touched)}
   
   public onSubmit(modal:any):void{
-    let mascota = this.mascotaForm.value as Mascota
+    let mas = this.mascotaForm.value as Mascota;
+    console.log(mas)
     if(this.mascota.id==''){
-      this.mascotas.createMascota(mascota).subscribe(()=>{
+      this.mascotas.createMascota(mas).subscribe(()=>{
         this.mascotas.getMascotas().subscribe((req)=>{
           this.mascotas.saveMascotas(req)
           this.update.emit()
@@ -69,7 +70,7 @@ export class DashBoardMascotaViewComponent implements OnInit {
       })
       return;
     }
-    this.mascotas.updateMascota(mascota,this.mascota.id).subscribe(()=>{
+    this.mascotas.updateMascota(mas,this.mascota.id).subscribe(()=>{
       this.mascotas.getMascotas().subscribe((req)=>{
         this.mascotas.saveMascotas(req)
         this.update.emit()

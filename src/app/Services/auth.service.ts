@@ -41,23 +41,16 @@ export class AuthService {
   }
 
   public updateUserInfo(nombre:string,apellido:string,telefono:string):Observable<any>{
-    const httpHeaders = new HttpHeaders({'Authorization': 'Bearer '+ this.token,})
     let body = new FormData()
     body.append('nombre',nombre);
     body.append('apellido',apellido);
     body.append('telefono',telefono);
-    return this.http.put('/api/usuario/persona',body,{headers: httpHeaders})
+    return this.http.put('/api/usuario/persona',body,{headers: this.authorization})
   }
 
-  public getUserInfo():Observable<any>{
-    const httpHeaders = new HttpHeaders({'Authorization': 'Bearer '+ this.token})
-    return this.http.get('/api/usuario',{headers:httpHeaders})
-  }
+  public getUserInfo():Observable<any>{return this.http.get('/api/usuario',{headers:this.authorization})}
 
-  public delete():Observable<any>{
-    const httpHeaders = new HttpHeaders({'Authorization': 'Bearer '+ this.token,})
-    return this.http.delete('/api/usuario',{headers: httpHeaders})
-  }
+  public delete():Observable<any>{return this.http.delete('/api/usuario',{headers: this.authorization})}
 
   public saveUserInfo(data:any){
     this.persona.apellido = data['apellido']
@@ -81,7 +74,7 @@ export class AuthService {
     }
     this.token = '';
   }
-
+  public get authorization(){return new HttpHeaders({'Authorization': 'Bearer '+ this.token,})}
   public get nombre():string{return this.persona.nombre}
   public get apellido():string{return this.persona.apellido}
   public get email():string{return this.persona.email}

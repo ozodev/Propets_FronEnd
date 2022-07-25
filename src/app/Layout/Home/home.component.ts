@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
   constructor(private mascotaService:MascotasService,private centro:CentroAtencionService,private citasService:CITAService,private veterinarioService:VeterinarioService) { }
 
   ngOnInit(): void {
-    this.centro.loadCentros().subscribe((req)=>{this.centro.centros=req})
     this.citasService.getTipos().subscribe((req)=>{this.citasService.CitasTipo=req})
     this.citasService.getFranjas().subscribe((req)=>{this.citasService.FranjaTipo=req})
     this.veterinarioService.getVeterinarios().subscribe((req)=>{this.veterinarioService.Veterinarios=req})
