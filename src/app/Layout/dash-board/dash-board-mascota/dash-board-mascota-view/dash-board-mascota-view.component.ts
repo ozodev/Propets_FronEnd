@@ -19,7 +19,6 @@ export class DashBoardMascotaViewComponent implements OnInit {
 
   @Input() mascota:Mascota;
   @Output() cancel = new EventEmitter()
-  @Output() update = new EventEmitter()
 
   public mascotaForm:FormGroup;
   
@@ -59,12 +58,10 @@ export class DashBoardMascotaViewComponent implements OnInit {
   
   public onSubmit(modal:any):void{
     let mas = this.mascotaForm.value as Mascota;
-    console.log(mas)
     if(this.mascota.id==''){
       this.mascotas.createMascota(mas).subscribe(()=>{
         this.mascotas.getMascotas().subscribe((req)=>{
           this.mascotas.saveMascotas(req)
-          this.update.emit()
           modal.close()
         })
       })
@@ -73,7 +70,6 @@ export class DashBoardMascotaViewComponent implements OnInit {
     this.mascotas.updateMascota(mas,this.mascota.id).subscribe(()=>{
       this.mascotas.getMascotas().subscribe((req)=>{
         this.mascotas.saveMascotas(req)
-        this.update.emit()
         modal.close()
       })
     })
@@ -83,7 +79,6 @@ export class DashBoardMascotaViewComponent implements OnInit {
     this.mascotas.deleteMascota(this.mascota.id).subscribe(()=>{
       this.mascotas.getMascotas().subscribe((req)=>{
         this.mascotas.saveMascotas(req)
-        this.update.emit()
         modal.close()
       })
     })

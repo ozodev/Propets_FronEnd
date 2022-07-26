@@ -9,7 +9,9 @@ export class VeterinarioService {
 
   private _veterinarios=[]
  
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+    this.getVeterinarios().subscribe((req)=>{this.Veterinarios=req})
+  }
 
   public getVeterinarios():Observable<any>{return this.http.get('/api/veterinario')}
 

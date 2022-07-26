@@ -14,16 +14,11 @@ export class DashBoardMascotaComponent implements OnInit {
 
   constructor(private storage:StorageService) {
     this.mascotas = []
-    this.onUpdate()
+    this.mascotas=this.storage.Mascotas
     this.newMascota = false;
   }
-  ngOnInit(): void {}
-
-  public onUpdate():void{this.mascotas=this.storage.Mascotas}
-
-  public onUpdateNew():void{
-    this.onUpdate()
-    this.newMascota=false;
+  ngOnInit(): void {
+    this.storage.getMascotas().subscribe((mascotas)=>{this.mascotas=mascotas})
   }
   
 }

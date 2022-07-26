@@ -51,9 +51,10 @@ export class LoginComponent implements OnInit {
         this.auth.token = req['access_token'];
         this.auth.getUserInfo().subscribe((req)=>{
           this.storage.savePersona(req)
-            this.loginmodal.close()
-            this.loginStatus=true;
-            this.username = this.storage.Persona.email;
+          this.storage.saveMascotas(req['mascotas'])
+          this.loginmodal.close()
+          this.loginStatus=true;
+          this.username = this.storage.Persona.email;
         })
       },()=>{this.loginerror=true})
     }

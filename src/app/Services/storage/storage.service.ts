@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { Mascota } from 'src/app/Objects/Mascota';
 import { Persona} from 'src/app/Objects/Persona';
 
@@ -8,6 +9,7 @@ import { Persona} from 'src/app/Objects/Persona';
 export class StorageService {
 
   private _mascotas:Mascota[] = []
+  private _mascotas$:Subject<Mascota[]> = new Subject<Mascota[]>();
   private _persona:Persona = new Persona()
  
   constructor() {}
@@ -25,6 +27,7 @@ export class StorageService {
       mascota.size =item['size']
       return mascota
     });
+    this._mascotas$.next(this.Mascotas);
   }
 
   public savePersona(data:any):void{
@@ -37,6 +40,8 @@ export class StorageService {
     persona.roles=data['roles']
     this.Persona=persona;
   }
+
+  public getMascotas():Observable<Mascota[]>{return this._mascotas$.asObservable();}
 
   public set Mascotas(mascotas:Mascota[]){this._mascotas=mascotas} 
   public get Mascotas(){return this._mascotas;}

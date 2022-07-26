@@ -19,13 +19,13 @@ export class DashBoardPersonalComponent implements OnInit {
   constructor(private auth:AuthService,private route:Router,private modalService: NgbModal,private storage:StorageService) { }
 
   ngOnInit(): void {
-    this.editable=false
     this.personaForm = new FormGroup({
       nombre: new FormControl(this.storage.Persona.nombre,[Validators.required,Validators.maxLength(20)]),
       apellido : new FormControl(this.storage.Persona.apellido,[Validators.required,Validators.maxLength(20)]),
       email : new FormControl(this.storage.Persona.email,[Validators.required,Validators.email]),
       telefono : new FormControl(this.storage.Persona.telefono,[Validators.required,Validators.minLength(10),Validators.maxLength(10)])
     })
+    this.editable=false
   }
 
   public hasErrors(control:string):boolean{return this.personaForm.controls[control].invalid && (this.personaForm.controls[control].dirty || this.personaForm.controls[control].touched)}
@@ -59,6 +59,7 @@ export class DashBoardPersonalComponent implements OnInit {
   public set editable(edit:boolean){
     if(edit) Object.keys(this.personaForm.controls).forEach(key => { this.personaForm.controls[key].enable()});
     else  Object.keys(this.personaForm.controls).forEach(key => { this.personaForm.controls[key].disable()});
+    this.personaForm.controls['email'].disable()
     this._editable=edit;
   }
 }

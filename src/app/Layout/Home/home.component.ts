@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CentroAtencionService } from 'src/app/Services/centro-atencion/centro-atencion.service';
+import { CitaService } from 'src/app/Services/cita/cita.service';
+import { MascotasService } from 'src/app/Services/mascotas/mascotas.service';
+import { VeterinarioService } from 'src/app/Services/veterinarios/veterinario.service';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +21,13 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class HomeComponent implements OnInit {
-  constructor() { }
+
+  constructor(
+    private mascotaService:MascotasService,
+    private centro:CentroAtencionService,
+    private citasService:CitaService,
+    private veterinarioService:VeterinarioService) { }
+
   ngOnInit(): void {}
+
 }
